@@ -1,3 +1,27 @@
+## ドキュメント
+
+* cloneする
+* Laravelの構築を進める（composer installなど）
+* データベースの作成と接続（.env作成）
+* yarnやnodeをインストール
+* npm run devで反映させる
+* workspaceのポート8000を開ける
+* php artisan serve --host=0.0.0.0で立ち上げ
+* nginxで接続できればなおよし（できてない）
+
+## 目的
+
+トレーニング管理アプリを作る。
+
+トレーニングの候補を管理画面から登録する
+日付を選んで、編集。
+その日にやったトレーニングと重量、回数を管理
+今までの最大重量をマイページで確認できるようにする
+部位を選ぶと候補が代わり、最大重量も教えてくれる
+
+目標体重と期間を設定すると、1日に必要なカロリーとタンパク質を教えてくれる
+
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
