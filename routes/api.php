@@ -14,7 +14,11 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['middleware' => ['api']], function() {
+    // Post（サンプル）
     Route::get('posts' , 'api\PostController@index');
     Route::post('add', 'api\PostController@addPost');
     Route::post('del', 'api\PostController@deletePost');
+
+    // カテゴリー
+    Route::get('categories' , 'api\CategoryController@index');
 });

@@ -68982,6 +68982,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -69016,6 +69024,15 @@ function RenderRows(props) {
   });
 }
 
+function TrainingCategory(props) {
+  return props.categories.map(function (category) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: category.id,
+      value: category.id
+    }, category.name);
+  });
+}
+
 var Example =
 /*#__PURE__*/
 function (_Component) {
@@ -69029,11 +69046,14 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Example).call(this));
     _this.state = {
       posts: [],
-      post: ''
+      post: '',
+      categories: [],
+      category: ''
     };
     _this.inputChange = _this.inputChange.bind(_assertThisInitialized(_this));
     _this.addPost = _this.addPost.bind(_assertThisInitialized(_this));
     _this.deleteTask = _this.deleteTask.bind(_assertThisInitialized(_this));
+    _this.changeCategory = _this.changeCategory.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -69042,12 +69062,28 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/posts').then(function (response) {
+      function getPosts() {
+        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/posts');
+      }
+
+      function getCategories() {
+        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/categories');
+      }
+
+      Promise.all([getPosts(), getCategories()]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            response1 = _ref2[0],
+            response2 = _ref2[1];
+
         _this2.setState({
-          posts: response.data
+          posts: response1.data
+        });
+
+        _this2.setState({
+          categories: response2.data
         });
       })["catch"](function () {
-        console.log(error);
+        console.log('未取得');
       });
     } //入力がされたら（都度）
 
@@ -69104,13 +69140,36 @@ function (_Component) {
       })["catch"](function (error) {
         console.log(error);
       });
+    } //カテゴリが変更されたら（都度）
+
+  }, {
+    key: "changeCategory",
+    value: function changeCategory(event) {
+      switch (event.target.name) {
+        case 'category':
+          this.setState({
+            category: event.target.value
+          });
+          break;
+
+        default:
+          break;
+      }
     }
   }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control col-md-4",
+        name: "category",
+        onChange: this.changeCategory
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingCategory, {
+        categories: this.state.categories
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: this.state.category
+      }, this.state.category)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group mt-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "post"
