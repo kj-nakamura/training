@@ -11,7 +11,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Post::insert([
+        \App\Http\Model\Post::insert([
             [
                 'name' => '名前1',
             ],
