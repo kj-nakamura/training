@@ -23,6 +23,12 @@ class SeedGenerator
             ],
         ],
     ];
+
+    // Fakerインスタンスを返す
+    public static function getFaker(): \Faker\Generator
+    {
+        return Faker\Factory::create('ja_JP');
+    }
 }
 
 ?>
