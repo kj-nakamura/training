@@ -20,7 +20,6 @@ export default class Example extends Component {
 
     constructor() {
         super();
-
         this.state = {
             posts: [],
             post: ''
@@ -98,6 +97,10 @@ export default class Example extends Component {
                 {/* add from */}
                 <div className="form-group mt-4">
                     <label htmlFor="post">新規Post</label>
+                    <select className="form-control" name="type">
+                        <option value="a">a</option>
+                        <option value="b">b</option>
+                    </select>
                     <input type="text" className="form-control" name="post" value={this.state.post} onChange={this.inputChange}/>
                 </div>
                 {/* table */}

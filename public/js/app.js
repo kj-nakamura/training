@@ -69114,7 +69114,14 @@ function (_Component) {
         className: "form-group mt-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "post"
-      }, "\u65B0\u898FPost"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "\u65B0\u898FPost"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        className: "form-control",
+        name: "type"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "a"
+      }, "a"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "b"
+      }, "b")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         className: "form-control",
         name: "post",
