@@ -21,4 +21,7 @@ Route::group(['middleware' => ['api']], function() {
 
     // カテゴリー
     Route::get('categories' , 'api\CategoryController@index');
+
+    // 種目
+    Route::get('events/{id}' , 'api\EventController@index');
 });

@@ -24,6 +24,14 @@ function TrainingCategory(props) {
     });
 }
 
+function TrainingEvent(props) {
+    return props.events.map(event => {
+        return (
+            <option key={event.id} value={event.id}>{event.name}</option>
+        )
+    })
+}
+
 export default class Example extends Component {
 
     constructor() {
@@ -33,6 +41,7 @@ export default class Example extends Component {
             post: '',
             categories: [],
             category: '',
+            events: [],
         };
         this.inputChange = this.inputChange.bind(this);
         this.addPost = this.addPost.bind(this);
@@ -47,10 +56,15 @@ export default class Example extends Component {
         function getCategories() {
             return axios.get('/api/categories');
         }
-        Promise.all([getPosts(), getCategories()])
-            .then(([response1, response2]) => {
+        function getEvents() {
+            return axios.get('/api/events/1');
+        }
+
+        Promise.all([getPosts(), getCategories(), getEvents()])
+            .then(([response1, response2, response3]) => {
                 this.setState({posts: response1.data});
                 this.setState({categories: response2.data});
+                this.setState({events: response3.data});
             })
             .catch(() => {
                 console.log('未取得');
@@ -113,9 +127,14 @@ export default class Example extends Component {
     changeCategory(event){
         switch(event.target.name){
             case 'category':
-                this.setState({
-                    category: event.target.value
-                });
+                axios.get('/api/events/' + event.target.value)
+                    .then((response) => {
+                        console.log(response);
+                        this.setState({events: response.data});
+                    })
+                    .catch(() => {
+                        console.log('未取得');
+                    });
                 break;
             default:
                 break;
@@ -131,7 +150,7 @@ export default class Example extends Component {
                 </select>
                 {/* イベント */}
                 <select>
-                    <option value={this.state.category}>{this.state.category}</option>
+                    <TrainingEvent events={this.state.events} />
                 </select>
 
                 {/* add from */}

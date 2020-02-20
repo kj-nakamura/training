@@ -69033,6 +69033,15 @@ function TrainingCategory(props) {
   });
 }
 
+function TrainingEvent(props) {
+  return props.events.map(function (event) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+      key: event.id,
+      value: event.id
+    }, event.name);
+  });
+}
+
 var Example =
 /*#__PURE__*/
 function (_Component) {
@@ -69048,7 +69057,8 @@ function (_Component) {
       posts: [],
       post: '',
       categories: [],
-      category: ''
+      category: '',
+      events: []
     };
     _this.inputChange = _this.inputChange.bind(_assertThisInitialized(_this));
     _this.addPost = _this.addPost.bind(_assertThisInitialized(_this));
@@ -69070,10 +69080,15 @@ function (_Component) {
         return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/categories');
       }
 
-      Promise.all([getPosts(), getCategories()]).then(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
+      function getEvents() {
+        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/events/1');
+      }
+
+      Promise.all([getPosts(), getCategories(), getEvents()]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 3),
             response1 = _ref2[0],
-            response2 = _ref2[1];
+            response2 = _ref2[1],
+            response3 = _ref2[2];
 
         _this2.setState({
           posts: response1.data
@@ -69081,6 +69096,10 @@ function (_Component) {
 
         _this2.setState({
           categories: response2.data
+        });
+
+        _this2.setState({
+          events: response3.data
         });
       })["catch"](function () {
         console.log('未取得');
@@ -69145,10 +69164,18 @@ function (_Component) {
   }, {
     key: "changeCategory",
     value: function changeCategory(event) {
+      var _this5 = this;
+
       switch (event.target.name) {
         case 'category':
-          this.setState({
-            category: event.target.value
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/events/' + event.target.value).then(function (response) {
+            console.log(response);
+
+            _this5.setState({
+              events: response.data
+            });
+          })["catch"](function () {
+            console.log('未取得');
           });
           break;
 
@@ -69167,9 +69194,9 @@ function (_Component) {
         onChange: this.changeCategory
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingCategory, {
         categories: this.state.categories
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-        value: this.state.category
-      }, this.state.category)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingEvent, {
+        events: this.state.events
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group mt-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         htmlFor: "post"
