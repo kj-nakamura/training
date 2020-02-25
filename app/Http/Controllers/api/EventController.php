@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers\api;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Model\Category;
-use App\Http\Model\Event;
 
 class  EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['addPost']);
+    }
+
     public function index(Request $request)
     {
-        $category = Category::find($request->id);
-        $events =  $category->events;
+        $events = Category::find($request->id)->events;
+
         return $events;
+    }
+
+    public function addPost(Request $request)
+    {
+        Auth::user()->events()->sync($request->event);
+
+        return view('welcome');
     }
 }

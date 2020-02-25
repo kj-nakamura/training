@@ -69008,21 +69008,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- //RenderRowsの機能実装
 
-function RenderRows(props) {
-  //mapでループしている（for相当）
-  return props.posts.map(function (post) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
-      key: post.id
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, post.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, post.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-      className: "btn btn-secondary",
-      onClick: function onClick() {
-        return props.deleteTask(post);
-      }
-    }, "\u5B8C\u4E86")));
-  });
-}
 
 function TrainingCategory(props) {
   return props.categories.map(function (category) {
@@ -69054,15 +69040,10 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Example).call(this));
     _this.state = {
-      posts: [],
-      post: '',
       categories: [],
       category: '',
       events: []
     };
-    _this.inputChange = _this.inputChange.bind(_assertThisInitialized(_this));
-    _this.addPost = _this.addPost.bind(_assertThisInitialized(_this));
-    _this.deleteTask = _this.deleteTask.bind(_assertThisInitialized(_this));
     _this.changeCategory = _this.changeCategory.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -69072,10 +69053,6 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      function getPosts() {
-        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/posts');
-      }
-
       function getCategories() {
         return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/categories');
       }
@@ -69084,94 +69061,34 @@ function (_Component) {
         return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/events/1');
       }
 
-      Promise.all([getPosts(), getCategories(), getEvents()]).then(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 3),
+      Promise.all([getCategories(), getEvents()]).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
             response1 = _ref2[0],
-            response2 = _ref2[1],
-            response3 = _ref2[2];
+            response2 = _ref2[1];
 
         _this2.setState({
-          posts: response1.data
+          categories: response1.data
         });
 
         _this2.setState({
-          categories: response2.data
-        });
-
-        _this2.setState({
-          events: response3.data
+          events: response2.data
         });
       })["catch"](function () {
         console.log('未取得');
-      });
-    } //入力がされたら（都度）
-
-  }, {
-    key: "inputChange",
-    value: function inputChange(event) {
-      switch (event.target.name) {
-        case 'post':
-          this.setState({
-            post: event.target.value
-          });
-          break;
-
-        default:
-          break;
-      }
-    } //登録ボタンがクリックされたら
-
-  }, {
-    key: "addPost",
-    value: function addPost() {
-      var _this3 = this;
-
-      //空だと弾く
-      if (this.state.post == '') {
-        return;
-      } //入力値を投げる
-
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/add', {
-        name: this.state.post
-      }).then(function (response) {
-        //戻り値をpostsにセット
-        _this3.setState({
-          posts: response.data,
-          post: ''
-        });
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    } //完了ボタンがクリックされたら
-
-  }, {
-    key: "deleteTask",
-    value: function deleteTask(post) {
-      var _this4 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/del', {
-        id: post.id
-      }).then(function (response) {
-        _this4.setState({
-          posts: response.data
-        });
-      })["catch"](function (error) {
-        console.log(error);
       });
     } //カテゴリが変更されたら（都度）
 
   }, {
     key: "changeCategory",
-    value: function changeCategory(event) {
-      var _this5 = this;
+    value: function changeCategory() {
+      var _this3 = this;
 
       switch (event.target.name) {
         case 'category':
           axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/events/' + event.target.value).then(function (response) {
             console.log(response);
 
-            _this5.setState({
+            _this3.setState({
               events: response.data
             });
           })["catch"](function () {
@@ -69184,6 +69101,36 @@ function (_Component) {
       }
     }
   }, {
+    key: "changeEvent",
+    value: function changeEvent() {
+      this.setState({
+        event: event.target.value
+      });
+    } //登録ボタンがクリックされたら
+
+  }, {
+    key: "addPost",
+    value: function addPost() {
+      var _this4 = this;
+
+      //空だと弾く
+      if (this.state.event == '') {
+        return;
+      } //入力値を投げる
+
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/events/add', {
+        event: this.state.event
+      }).then(function (response) {
+        //戻り値をpostsにセット
+        _this4.setState({
+          event: ''
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -69194,25 +69141,14 @@ function (_Component) {
         onChange: this.changeCategory
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingCategory, {
         categories: this.state.categories
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingEvent, {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        onChange: this.changeEvent
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingEvent, {
         events: this.state.events
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "form-group mt-4"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "post"
-      }, "\u65B0\u898FPost"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        className: "form-control",
-        name: "post",
-        value: this.state.post,
-        onChange: this.inputChange
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary",
         onClick: this.addPost
-      }, "\u767B\u9332"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RenderRows, {
-        posts: this.state.posts,
-        deleteTask: this.deleteTask
-      }))));
+      }, "\u767B\u9332"));
     }
   }]);
 

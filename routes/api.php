@@ -24,4 +24,5 @@ Route::group(['middleware' => ['api']], function() {
 
     // 種目
     Route::get('events/{id}' , 'api\EventController@index');
+    Route::post('events/add' , 'api\EventController@addPost');
 });
