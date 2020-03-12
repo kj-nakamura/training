@@ -21,7 +21,6 @@ export default class Event extends Component {
                 <select onChange={this.changeEvent} name="event">
                     <TrainingEvent events={this.props.events} />
                 </select>
-                <button type="submit" className="btn btn-danger">Send</button>
             </div>
         );
     }

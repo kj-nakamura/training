@@ -69182,10 +69182,7 @@ function (_Component) {
         name: "event"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingEvent, {
         events: this.props.events
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "submit",
-        className: "btn btn-danger"
-      }, "Send"));
+      })));
     }
   }]);
 
