@@ -26,11 +26,29 @@ export default class Example extends Component {
             categories: [],
             category: '',
             events: [],
+            event: 1
         };
         this.changeCategory = this.changeCategory.bind(this);
+        this.changeEvent = this.changeEvent.bind(this);
+        this.addPost= this.addPost.bind(this);
     }
 
     componentDidMount() {
+        // Intercept the response and ...
+        axios.interceptors.response.use(response => {
+            // ...get the token from the header or response data if exists, and save it.
+            const token = response.headers['Authorization'] || response.data['token']
+            if (token) {
+            localStorage.setItem('jwt-token', token)
+            }
+
+            return response
+        }, error => {
+            // Also, if we receive a Bad Request / Unauthorized error
+            console.log(error)
+            return Promise.reject(error)
+        })
+
         function getCategories() {
             return axios.get('/api/categories');
         }
@@ -55,7 +73,10 @@ export default class Example extends Component {
                 axios.get('/api/events/' + event.target.value)
                     .then((response) => {
                         console.log(response);
-                        this.setState({events: response.data});
+                        this.setState({
+                            events: response.data,
+                            event: response.data[0]['id']
+                        });
                     })
                     .catch(() => {
                         console.log('未取得');
@@ -66,12 +87,16 @@ export default class Example extends Component {
         }
     }
 
-    changeEvent(){
-        this.setState({event: event.target.value});
+    // 種目が変更されたら（都度）
+    changeEvent() {
+        this.setState({
+            event: event.target.value
+        });
     }
 
     //登録ボタンがクリックされたら
     addPost(){
+        console.log(this.state.event);
         //空だと弾く
         if(this.state.event == ''){
             return;
@@ -83,9 +108,6 @@ export default class Example extends Component {
             })
             .then((response) => {
                 //戻り値をpostsにセット
-                this.setState({
-                    event: ''
-                });
             })
             .catch(error => {
                 console.log(error);
@@ -103,7 +125,7 @@ export default class Example extends Component {
                 <select onChange={this.changeEvent}>
                     <TrainingEvent events={this.state.events} />
                 </select>
-                <button className="btn btn-primary" onClick={this.addPost}>登録</button>
+                <button className="btn btn-primary" name='event' onClick={this.addPost}>登録</button>
             </div>
         );
     }

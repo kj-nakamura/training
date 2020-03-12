@@ -13,16 +13,29 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['api']], function() {
+Route::group([
+    'middleware' => ['api'],
+    'prefix' => 'auth'
+], function($router) {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+});
+
+Route::group([
+    'middleware' => ['api'],
+    'namespace' => 'api'
+], function() {
     // Post（サンプル）
-    Route::get('posts' , 'api\PostController@index');
-    Route::post('add', 'api\PostController@addPost');
-    Route::post('del', 'api\PostController@deletePost');
+    Route::get('posts' , 'PostController@index');
+    Route::post('add', 'PostController@addPost');
+    Route::post('del', 'PostController@deletePost');
 
     // カテゴリー
-    Route::get('categories' , 'api\CategoryController@index');
+    Route::get('categories' , 'CategoryController@index');
 
     // 種目
-    Route::get('events/{id}' , 'api\EventController@index');
-    Route::post('events/add' , 'api\EventController@addPost');
+    Route::get('events/{id}' , 'EventController@index');
+    Route::post('events/add' , 'EventController@addPost');
 });

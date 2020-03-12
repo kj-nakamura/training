@@ -69042,9 +69042,12 @@ function (_Component) {
     _this.state = {
       categories: [],
       category: '',
-      events: []
+      events: [],
+      event: 1
     };
     _this.changeCategory = _this.changeCategory.bind(_assertThisInitialized(_this));
+    _this.changeEvent = _this.changeEvent.bind(_assertThisInitialized(_this));
+    _this.addPost = _this.addPost.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -69052,6 +69055,22 @@ function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
+
+      // Intercept the response and ...
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.interceptors.response.use(function (response) {
+        // ...get the token from the header or response data if exists, and save it.
+        var token = response.headers['Authorization'] || response.data['token'];
+
+        if (token) {
+          localStorage.setItem('jwt-token', token);
+        }
+
+        return response;
+      }, function (error) {
+        // Also, if we receive a Bad Request / Unauthorized error
+        console.log(error);
+        return Promise.reject(error);
+      });
 
       function getCategories() {
         return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/categories');
@@ -69089,7 +69108,8 @@ function (_Component) {
             console.log(response);
 
             _this3.setState({
-              events: response.data
+              events: response.data,
+              event: response.data[0]['id']
             });
           })["catch"](function () {
             console.log('未取得');
@@ -69099,7 +69119,8 @@ function (_Component) {
         default:
           break;
       }
-    }
+    } // 種目が変更されたら（都度）
+
   }, {
     key: "changeEvent",
     value: function changeEvent() {
@@ -69111,9 +69132,8 @@ function (_Component) {
   }, {
     key: "addPost",
     value: function addPost() {
-      var _this4 = this;
+      console.log(this.state.event); //空だと弾く
 
-      //空だと弾く
       if (this.state.event == '') {
         return;
       } //入力値を投げる
@@ -69121,11 +69141,7 @@ function (_Component) {
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/events/add', {
         event: this.state.event
-      }).then(function (response) {
-        //戻り値をpostsにセット
-        _this4.setState({
-          event: ''
-        });
+      }).then(function (response) {//戻り値をpostsにセット
       })["catch"](function (error) {
         console.log(error);
       });
@@ -69147,6 +69163,7 @@ function (_Component) {
         events: this.state.events
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary",
+        name: "event",
         onClick: this.addPost
       }, "\u767B\u9332"));
     }
@@ -69181,8 +69198,8 @@ if (document.getElementById('example')) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/laravel-react-example/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /var/www/laravel-react-example/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/training/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/training/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
