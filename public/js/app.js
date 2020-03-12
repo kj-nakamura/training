@@ -69034,7 +69034,6 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Category).call(this, props));
     _this.state = {
       categories: [],
-      category: '',
       events: []
     };
     _this.changeCategory = _this.changeCategory.bind(_assertThisInitialized(_this));
@@ -69047,11 +69046,11 @@ function (_Component) {
       var _this2 = this;
 
       function getCategories() {
-        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/categories');
+        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/categories");
       }
 
       function getEvents() {
-        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/events/1');
+        return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/events/1");
       }
 
       Promise.all([getCategories(), getEvents()]).then(function (_ref) {
@@ -69059,15 +69058,17 @@ function (_Component) {
             response1 = _ref2[0],
             response2 = _ref2[1];
 
+        console.log(response2);
+
         _this2.setState({
           categories: response1.data
         });
 
         _this2.setState({
-          events: response2.data
+          events: response2.events
         });
       })["catch"](function () {
-        console.log('未取得');
+        console.log("未取得");
       });
     } //カテゴリが変更されたら（都度）
 
@@ -69077,15 +69078,15 @@ function (_Component) {
       var _this3 = this;
 
       switch (event.target.name) {
-        case 'category':
-          axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/events/' + event.target.value).then(function (response) {
+        case "category":
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/events/" + event.target.value).then(function (response) {
             console.log(response.data);
 
             _this3.setState({
               events: response.data
             });
           })["catch"](function () {
-            console.log('未取得');
+            console.log("未取得");
           });
           break;
 
@@ -69113,8 +69114,8 @@ function (_Component) {
 
 
 
-if (document.getElementById('category')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Category, null), document.getElementById('category'));
+if (document.getElementById("category")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Category, null), document.getElementById("category"));
 }
 
 /***/ }),

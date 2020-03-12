@@ -17,8 +17,9 @@ class  EventController extends Controller
     public function index(Request $request)
     {
         $events = Category::find($request->id)->events;
+        $user = \Auth::user();
 
-        return $events;
+        return ['events' => $events, 'user' => $user];
     }
 
     public function addPost(Request $request)
