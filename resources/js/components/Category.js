@@ -65,7 +65,6 @@ export default class Category extends Component {
     render() {
         return (
             <div>
-                {/*カテゴリ*/}
                 <select className="form-control col-md-4" name="category" onChange={this.changeCategory}>
                     <TrainingCategory categories={this.state.categories}/>
                 </select>

@@ -71,7 +71,34 @@
                 </div>
             </div>
         </nav>
+        <div class="container">
+            @if (session('result'))
+                <div class="alert alert-success" role="alert">
+                @if(is_array(session('result')))
+                    @foreach (session('result') as $result_item)
+                    {{ $result_item }}{!! $loop->last ? '' : '<br>' !!}
+                    @endforeach
+                @else
+                    {{ session('result') }}
+                @endif
+                </div>
+            @endif
 
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                {{ session('error') }}
+                </div>
+            @endif
+            @foreach(collect($errors->all())->unique() as $message)
+                @if ($loop->first)
+                <div class="alert alert-danger" role="alert">
+                @endif
+                {{ $message }}<br>
+                @if ($loop->last)
+                </div>
+                @endif
+            @endforeach
+        </div>
         <main class="py-4">
             @yield('content')
         </main>

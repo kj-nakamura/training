@@ -15,19 +15,13 @@ export default class Event extends Component {
         super(props);
     }
 
-    changeEvent(){
-        this.setState({event: event.target.value});
-    }
-
     render() {
         return (
             <div>
-                <form role="form" className="form" method="POST" action="/api/events/add">
-                    <select onChange={this.changeEvent} name="event">
-                        <TrainingEvent events={this.props.events} />
-                    </select>
-                    <button type="submit" className="btn btn-danger">Send</button>
-                </form>
+                <select onChange={this.changeEvent} name="event">
+                    <TrainingEvent events={this.props.events} />
+                </select>
+                <button type="submit" className="btn btn-danger">Send</button>
             </div>
         );
     }

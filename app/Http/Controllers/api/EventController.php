@@ -23,8 +23,8 @@ class  EventController extends Controller
 
     public function addPost(Request $request)
     {
-        Auth::user()->events()->sync($request->event);
+        Auth::user()->events()->syncWithoutDetaching($request->event);
 
-        return view('welcome');
+        return redirect('/')->with('result', '保存しました。');
     }
 }

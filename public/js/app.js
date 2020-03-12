@@ -69175,21 +69175,9 @@ function (_Component) {
   }
 
   _createClass(Event, [{
-    key: "changeEvent",
-    value: function changeEvent() {
-      this.setState({
-        event: event.target.value
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        role: "form",
-        className: "form",
-        method: "POST",
-        action: "/api/events/add"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         onChange: this.changeEvent,
         name: "event"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingEvent, {
@@ -69197,7 +69185,7 @@ function (_Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         className: "btn btn-danger"
-      }, "Send")));
+      }, "Send"));
     }
   }]);
 
