@@ -13,4 +13,3 @@ require('./bootstrap');
  */
 
 require('./components/Category');
-require('./components/Event');

@@ -11,11 +11,8 @@ function TrainingEvent(props) {
 
 export default class Event extends Component {
 
-    constructor() {
-        super();
-        this.state = {
-            events: [],
-        };
+    constructor(props) {
+        super(props);
     }
 
     changeEvent(){
@@ -25,12 +22,12 @@ export default class Event extends Component {
     render() {
         return (
             <div>
-                <h1>aa</h1>
-                {/* <form role="form" class="form" method="POST" action="{{ route('login') }}"> */}
-                    {/* <select onChange={this.changeEvent}>
-                        <TrainingEvent events={this.state.events} />
+                <form role="form" className="form" method="POST" action="/api/events/add">
+                    <select onChange={this.changeEvent} name="event">
+                        <TrainingEvent events={this.props.events} />
                     </select>
-                </form> */}
+                    <button type="submit" className="btn btn-danger">Send</button>
+                </form>
             </div>
         );
     }
