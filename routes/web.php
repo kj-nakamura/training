@@ -16,5 +16,6 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::name('web::')->middleware(['auth'])->group(function () {
-    Route::post('events/add' , 'api\EventController@addPost')->name('event.add');
+    Route::post('events/add' , 'api\EventController@add')->name('event.add');
+    Route::post('events/delete/{event}' , 'api\EventController@delete')->name('my_event.delete');
 });

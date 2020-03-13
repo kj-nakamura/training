@@ -35,7 +35,7 @@ export default class Category extends Component {
             .then(([response1, response2]) => {
                 console.log(response2);
                 this.setState({ categories: response1.data });
-                this.setState({ events: response2.events });
+                this.setState({ events: response2.data.events });
             })
             .catch(() => {
                 console.log("未取得");
@@ -51,7 +51,7 @@ export default class Category extends Component {
                     .then(response => {
                         console.log(response.data);
                         this.setState({
-                            events: response.data
+                            events: response.data.events
                         });
                     })
                     .catch(() => {

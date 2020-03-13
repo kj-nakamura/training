@@ -69065,7 +69065,7 @@ function (_Component) {
         });
 
         _this2.setState({
-          events: response2.events
+          events: response2.data.events
         });
       })["catch"](function () {
         console.log("未取得");
@@ -69083,7 +69083,7 @@ function (_Component) {
             console.log(response.data);
 
             _this3.setState({
-              events: response.data
+              events: response.data.events
             });
           })["catch"](function () {
             console.log("未取得");
@@ -69192,8 +69192,8 @@ function (_Component) {
 
 
 
-if (document.getElementById('event')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Event, null), document.getElementById('event'));
+if (document.getElementById("event")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Event, null), document.getElementById("event"));
 }
 
 /***/ }),
