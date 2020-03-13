@@ -6,7 +6,7 @@
     <h3 class="mt-5">トレーニング 管理</h3>
     <form role="form" class="form" method="POST" action="{{ route('web::event.add') }}">
       {{ csrf_field() }}
-      <div id="category"></div>
+      <div id="form"></div>
       <button type="submit" class="btn btn-primary text-right">Send</button>
     </form>
   </div>

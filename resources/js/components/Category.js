@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import Event from "./Event";
 
 function TrainingCategory(props) {
     return props.categories.map(category => {
@@ -13,54 +12,9 @@ function TrainingCategory(props) {
     });
 }
 
-export default class Category extends Component {
+class Category extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            categories: [],
-            events: []
-        };
-        this.changeCategory = this.changeCategory.bind(this);
-    }
-
-    componentDidMount() {
-        function getCategories() {
-            return axios.get("/api/categories");
-        }
-        function getEvents() {
-            return axios.get("/api/events/1");
-        }
-
-        Promise.all([getCategories(), getEvents()])
-            .then(([response1, response2]) => {
-                console.log(response2);
-                this.setState({ categories: response1.data });
-                this.setState({ events: response2.data.events });
-            })
-            .catch(() => {
-                console.log("未取得");
-            });
-    }
-
-    //カテゴリが変更されたら（都度）
-    changeCategory() {
-        switch (event.target.name) {
-            case "category":
-                axios
-                    .get("/api/events/" + event.target.value)
-                    .then(response => {
-                        console.log(response.data);
-                        this.setState({
-                            events: response.data.events
-                        });
-                    })
-                    .catch(() => {
-                        console.log("未取得");
-                    });
-                break;
-            default:
-                break;
-        }
     }
 
     render() {
@@ -69,16 +23,13 @@ export default class Category extends Component {
                 <select
                     className="form-control col-md-4"
                     name="category"
-                    onChange={this.changeCategory}
+                    onChange={this.props.changeCategory}
                 >
-                    <TrainingCategory categories={this.state.categories} />
+                  <TrainingCategory categories={this.props.categories} />
                 </select>
-                <Event events={this.state.events} />
             </div>
         );
     }
 }
 
-if (document.getElementById("category")) {
-    ReactDOM.render(<Category />, document.getElementById("category"));
-}
+export default Category;

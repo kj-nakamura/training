@@ -13,9 +13,11 @@
 
 Auth::routes();
 
+Route::namespace('web')->group(function () {
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::name('web::')->middleware(['auth'])->group(function () {
-    Route::post('events/add' , 'api\EventController@add')->name('event.add');
-    Route::post('events/delete/{event}' , 'api\EventController@delete')->name('my_event.delete');
+    Route::name('web::')->middleware(['auth'])->group(function () {
+        Route::post('events/add' , 'EventController@add')->name('event.add');
+        Route::post('events/delete/{event}' , 'EventController@delete')->name('my_event.delete');
+    });
 });

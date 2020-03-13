@@ -11,7 +11,7 @@ function TrainingEvent(props) {
   });
 }
 
-export default class Event extends Component {
+class Event extends Component {
   constructor(props) {
     super(props);
   }
@@ -27,6 +27,4 @@ export default class Event extends Component {
   }
 }
 
-if (document.getElementById("event")) {
-  ReactDOM.render(<Event />, document.getElementById("event"));
-}
+export default Event;
