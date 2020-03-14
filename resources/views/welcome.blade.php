@@ -20,7 +20,9 @@
       <h3 class="mt-5">今日やった種目一覧</h3>
       <ul>
         @foreach($events as $event)
-          <li>{{ $event->name }}
+          <li>
+            {{ $event->name }}
+            {{ $event->pivot->event_at }}
             <button type="button"
                     class="btn btn-danger btn-xs"
                     data-toggle="modal"

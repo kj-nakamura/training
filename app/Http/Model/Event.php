@@ -17,6 +17,6 @@ class Event extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Http\Model\User');
+        return $this->belongsToMany('App\Http\Model\User')->using('App\Http\Model\EventUser')->withPivot('event_at');
     }
 }
