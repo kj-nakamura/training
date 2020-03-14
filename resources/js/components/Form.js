@@ -33,7 +33,7 @@ class Form extends Component {
             });
     }
 
-    //カテゴリが変更されたら（都度）
+    //カテゴリが変更されたら
     changeCategory() {
       switch (event.target.name) {
           case "category":
@@ -55,9 +55,9 @@ class Form extends Component {
 
     render() {
         return (
-            <div>
-                <Category categories={this.state.categories} changeCategory={this.changeCategory} />
-                <Event events={this.state.events} />
+            <div className="container">
+              <Category categories={this.state.categories} changeCategory={this.changeCategory} />
+              <Event events={this.state.events} />
             </div>
         );
     }

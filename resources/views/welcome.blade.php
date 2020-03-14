@@ -6,7 +6,13 @@
     <h3 class="mt-5">トレーニング 管理</h3>
     <form role="form" class="form" method="POST" action="{{ route('web::event.add') }}">
       {{ csrf_field() }}
+      <div class="row">
+        <div class="form-group">
+          <input type="date" value="{{ now()->format('Y-m-d') }}" class="form-control" name="event_at" />
+        </div>
+      </div>
       <div id="form"></div>
+      <input type="hidden" value="{{ \Auth::user()->id }}" name="user" />
       <button type="submit" class="btn btn-primary text-right">Send</button>
     </form>
   </div>
@@ -53,6 +59,13 @@
 @endsection
 
 @section('page_assets_end_body_tag')
+  <script>
+    $('.datepicker').datepicker({
+      language: 'ja',
+      autoclose: true,
+      format: 'yyyy-mm-dd'
+    });
+  </script>
   <script>
     $('#modal_delete').on('shown.bs.modal', function (event) {
       var button = $(event.relatedTarget);

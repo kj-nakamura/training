@@ -18,8 +18,8 @@ class Event extends Component {
 
   render() {
     return (
-      <div>
-        <select onChange={this.changeEvent} name="event">
+      <div className="row">
+        <select onChange={this.changeEvent} name="event" className="form-control col-md-4">
           <TrainingEvent events={this.props.events} />
         </select>
       </div>

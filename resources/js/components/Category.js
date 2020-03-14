@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
 
 function TrainingCategory(props) {
     return props.categories.map(category => {
@@ -19,15 +18,11 @@ class Category extends Component {
 
     render() {
         return (
-            <div>
-                <select
-                    className="form-control col-md-4"
-                    name="category"
-                    onChange={this.props.changeCategory}
-                >
-                  <TrainingCategory categories={this.props.categories} />
-                </select>
-            </div>
+          <div className="row">
+            <select className="form-control col-md-4" name="category" onChange={this.props.changeCategory}>
+              <TrainingCategory categories={this.props.categories} />
+            </select>
+          </div>
         );
     }
 }
