@@ -16,26 +16,26 @@ class  EventController extends Controller
             $request->all(),
             [
                 'event' => 'required|integer',
-                'user' => 'required|integer',
                 'event_at' => Rule::unique('event_user')->where(function ($query) use ($request){
-                    return $query->where('user_id', $request->user)
+                    return $query->where('user_id', \Auth::user()->id)
                         ->where('event_id', $request->event);
                 })
             ]
         )->validate();
 
-        $event = EventUser::create([
-            'event_id' => $request->event,
-            'user_id' => $request->user,
-            'event_at' => $request->event_at,
-        ]);
+        \Auth::user()->events()->attach([$request->event => ['event_at' => $request->event_at]]);
 
         return redirect('/')->with('result', '保存しました。');
     }
 
-    public function delete(Request $request, Event $event)
+    public function delete(Request $request, Event $event, $event_at)
     {
-        \Auth::user()->events()->detach($event->id);
+        $event_user = EventUser::where('event_id', $event->id)
+                        ->where('user_id', \Auth::user()->id)
+                        ->where('event_at', $event_at)
+                        ->first();
+        $event_user->delete();
+        // $this->user->events()->detach([$event->id => ['event_at' => $event->pivot->event_at]]);
 
         return redirect('/')->with('result', '削除しました。');
     }

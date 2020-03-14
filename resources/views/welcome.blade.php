@@ -12,7 +12,6 @@
         </div>
       </div>
       <div id="form"></div>
-      <input type="hidden" value="{{ \Auth::user()->id }}" name="user" />
       <button type="submit" class="btn btn-primary text-right">Send</button>
     </form>
   </div>
@@ -28,7 +27,7 @@
                     data-toggle="modal"
                     data-target="#modal_delete"
                     data-title="種目 :  {{ $event->name }}"
-                    data-event_url="{{ route('web::my_event.delete', $event) }}">
+                    data-event_url="{{ route('web::my_event.delete', [$event, $event->pivot->event_at]) }}">
               削除
             </button>
           </li>
