@@ -5,15 +5,16 @@ namespace App\Http\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Event extends Model
+class UserEvent extends Model
 {
     protected $fillable = [
         'name',
+        'event_at'
     ];
 
-    public function categories()
+    public function user()
     {
-        return $this->belongsToMany('App\Http\Model\Category');
+        return $this->belongsTo('App\Http\Model\User');
     }
 
     // public static function search(Request $request)

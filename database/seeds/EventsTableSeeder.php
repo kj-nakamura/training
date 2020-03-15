@@ -24,7 +24,11 @@ class EventsTableSeeder extends Seeder
                     'email' => str_replace('{tmp}', $event->id, 'kenji.nkmr.1117+{tmp}@gmail.com'),
                     'password' => bcrypt('1qaz2wsx'),
                 ]);
-                $user->events()->attach($event->id);
+                $user_events = \App\Http\Model\UserEvent::create([
+                    'user_id' => $user->id,
+                    'name' => $event->name,
+                    'event_at' => now()->format('Y-m-d'),
+                ]);
             }
         }
 

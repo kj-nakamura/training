@@ -21,13 +21,12 @@
         @foreach($events as $event)
           <li>
             {{ $event->name }}
-            {{ $event->pivot->event_at }}
             <button type="button"
                     class="btn btn-danger btn-xs"
                     data-toggle="modal"
                     data-target="#modal_delete"
                     data-title="種目 :  {{ $event->name }}"
-                    data-event_url="{{ route('web::my_event.delete', [$event, $event->pivot->event_at]) }}">
+                    data-event_url="{{ route('web::my_event.delete', $event) }}">
               削除
             </button>
           </li>
