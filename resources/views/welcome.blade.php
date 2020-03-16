@@ -4,11 +4,17 @@
 <div class="container">
   <div>
     <h3 class="mt-5">トレーニング 管理</h3>
+    <a href="{{ route('web::home') }}">今日</a>
+    <a href="{{ route('web::home', ['day' => 1]) }}">昨日</a>
+    <a href="{{ route('web::home', ['day' => 2]) }}">2日前</a>
     <form role="form" class="form" method="POST" action="{{ route('web::event.add') }}">
       {{ csrf_field() }}
       <div class="row">
         <div class="form-group">
-          <input type="date" value="{{ now()->format('Y-m-d') }}" class="form-control" name="event_at" />
+          <input type="date"
+                 value="{{ now()->subDay(request()->day ?? 0)->format('Y-m-d') }}"
+                 class="form-control"
+                 name="event_at" />
         </div>
       </div>
       <div id="form"></div>

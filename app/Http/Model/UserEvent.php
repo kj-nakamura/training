@@ -18,16 +18,18 @@ class UserEvent extends Model
         return $this->belongsTo('App\Http\Model\User');
     }
 
-    // public static function search(Request $request)
-    // {
-    //     $query = self::query();
+    public static function search(Request $request)
+    {
+        $query = self::query();
 
-    //     // if ($request->filled('event_at')) {
-    //     // }
-    //     $query->whereHas('users', function ($query){
-    //         $query->where('users.id', \Auth::user()->id);
-    //     });
+        $query->where('user_id', \Auth::user()->id);
 
-    //     return $query->get();
-    // }
+        if ($request->filled('day')) {
+            $query->where('event_at', now()->subDays($request->day)->format('Y-m-d'));
+        } else {
+            $query->where('event_at', now()->format('Y-m-d'));
+        }
+
+        return $query->get();
+    }
 }
