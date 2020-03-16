@@ -21,6 +21,7 @@
         @foreach($events as $event)
           <li>
             {{ $event->name }}
+            {{ $event->event_at }}
             <button type="button"
                     class="btn btn-danger btn-xs"
                     data-toggle="modal"

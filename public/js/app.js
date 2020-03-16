@@ -69078,7 +69078,7 @@ function TrainingEvent(props) {
   return props.events.map(function (event) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
       key: event.id,
-      value: event.id
+      value: event.name
     }, event.name);
   });
 }
@@ -69101,7 +69101,7 @@ function (_Component) {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         onChange: this.changeEvent,
-        name: "event",
+        name: "name",
         className: "form-control col-md-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TrainingEvent, {
         events: this.props.events

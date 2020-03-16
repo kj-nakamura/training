@@ -12,21 +12,21 @@ class  EventController extends Controller
 {
     public function add(Request $request)
     {
-        // \Validator::make(
-        //     $request->all(),
-        //     [
-        //         'event' => 'required|integer',
-        //         'event_at' => Rule::unique('event_user')->where(function ($query) use ($request){
-        //             return $query->where('user_id', \Auth::user()->id)
-        //                 ->where('event_id', $request->event);
-        //         })
-        //     ]
-        // )->validate();
+        \Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|string',
+                'event_at' => Rule::unique('user_events')->where(function ($query) use ($request){
+                    return $query->where('user_id', \Auth::user()->id)
+                        ->where('name', $request->name);
+                })
+            ]
+        )->validate();
 
         UserEvent::create([
             'user_id' => \Auth::user()->id,
-            'name' => $request->event->name,
-            'event_at' => $request->date,
+            'name' => $request->name,
+            'event_at' => $request->event_at,
         ]);
 
         return redirect('/')->with('result', '保存しました。');

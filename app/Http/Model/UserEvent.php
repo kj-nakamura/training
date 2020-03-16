@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class UserEvent extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'event_at'
     ];
