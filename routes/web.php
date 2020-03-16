@@ -18,6 +18,6 @@ Route::get('/', 'HomeController@index')->name('home');
 
     Route::middleware(['auth'])->group(function () {
         Route::post('events/add' , 'EventController@add')->name('event.add');
-        Route::post('events/delete/{event}' , 'EventController@delete')->name('my_event.delete');
+        Route::post('events/delete/{user_event}' , 'EventController@delete')->name('my_event.delete');
     });
 });

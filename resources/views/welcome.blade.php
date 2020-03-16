@@ -7,7 +7,10 @@
     <a href="{{ route('web::home') }}">今日</a>
     <a href="{{ route('web::home', ['day' => 1]) }}">昨日</a>
     <a href="{{ route('web::home', ['day' => 2]) }}">2日前</a>
-    <form role="form" class="form" method="POST" action="{{ route('web::event.add') }}">
+    <form role="form"
+          class="form"
+          method="POST"
+          action="{{ route('web::event.add') }}">
       {{ csrf_field() }}
       <div class="row">
         <div class="form-group">
@@ -18,6 +21,7 @@
         </div>
       </div>
       <div id="form"></div>
+      <input type="hidden" value="{{ request()->day }}" name="day">
       <button type="submit" class="btn btn-primary text-right">Send</button>
     </form>
   </div>
@@ -33,7 +37,7 @@
                     data-toggle="modal"
                     data-target="#modal_delete"
                     data-title="種目 :  {{ $event->name }}"
-                    data-event_url="{{ route('web::my_event.delete', $event) }}">
+                    data-event_url="{{ route('web::my_event.delete', collect($event)->put('day', request()->day)->toArray()) }}">
               削除
             </button>
           </li>

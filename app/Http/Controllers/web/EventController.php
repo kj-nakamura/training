@@ -29,17 +29,13 @@ class  EventController extends Controller
             'event_at' => $request->event_at,
         ]);
 
-        return redirect('/')->with('result', '保存しました。');
+        return redirect(route('web::home', ['day' => $request->day]))->with('result', '保存しました。');
     }
 
-    public function delete(Request $request, Event $event, $event_at)
+    public function delete(Request $request, UserEvent $user_event)
     {
-        $event_user = EventUser::where('event_id', $event->id)
-                        ->where('user_id', \Auth::user()->id)
-                        ->where('event_at', $event_at)
-                        ->first();
-        $event_user->delete();
+        $user_event->delete();
 
-        return redirect('/')->with('result', '削除しました。');
+        return redirect(route('web::home', ['day' => $request->day]))->with('result', '削除しました。');
     }
 }
