@@ -17,7 +17,8 @@ Route::name('web::')->namespace('web')->group(function () {
 Route::get('/', 'HomeController@index')->name('home');
 
     Route::middleware(['auth'])->group(function () {
-        Route::post('events/add' , 'EventController@add')->name('event.add');
-        Route::post('events/delete/{user_event}' , 'EventController@delete')->name('my_event.delete');
+        Route::get('events/{user_event}' , 'UserEventController@show')->name('event.show');
+        Route::post('events/add' , 'UserEventController@add')->name('event.add');
+        Route::post('events/delete/{user_event}' , 'UserEventController@delete')->name('my_event.delete');
     });
 });

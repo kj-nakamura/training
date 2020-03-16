@@ -5,11 +5,16 @@ namespace App\Http\Controllers\web;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
-use App\Http\Model\Event;
 use App\Http\Model\UserEvent;
 
-class  EventController extends Controller
+class  UserEventController extends Controller
 {
+    public function show(UserEvent $user_event) {
+        return view('user_event.show',[
+            'user_event' => $user_event,
+        ]);
+    }
+
     public function add(Request $request)
     {
         \Validator::make(

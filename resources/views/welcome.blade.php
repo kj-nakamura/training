@@ -26,11 +26,11 @@
     </form>
   </div>
   <div>
-      <h3 class="mt-5">今日やった種目一覧</h3>
+      <h3 class="mt-5">種目一覧</h3>
       <ul>
         @foreach($events as $event)
           <li>
-            {{ $event->name }}
+          <a href="{{ route('web::event.show', $event) }}">{{ $event->name }}</a>
             {{ $event->event_at }}
             <button type="button"
                     class="btn btn-danger btn-xs"
