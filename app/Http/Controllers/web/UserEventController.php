@@ -11,7 +11,7 @@ use App\Http\Model\WeightCount;
 class  UserEventController extends Controller
 {
     public function show(UserEvent $user_event) {
-        return view('user_event.show',[
+        return view('web.user_event.show',[
             'user_event' => $user_event,
         ]);
     }
