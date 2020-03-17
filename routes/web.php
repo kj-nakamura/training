@@ -23,7 +23,3 @@ Route::name('web::')->namespace('web')->group(function () {
         Route::post('weight_count/{user_event}/add' , 'UserEventController@addWeightCount')->name('weight_count.add');
     });
 });
-
-Route::name('admin::')->namespace('admin')->prefix('admin')->group(function () {
-    Route::get('/', 'HomeController@index')->name('home');
-});
