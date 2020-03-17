@@ -18,6 +18,11 @@ class UserEvent extends Model
         return $this->belongsTo('App\Http\Model\User');
     }
 
+    public function weight_counts()
+    {
+        return $this->hasMany('App\Http\Model\WeightCount');
+    }
+
     public static function search(Request $request)
     {
         $query = self::query();
