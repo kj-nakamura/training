@@ -80,7 +80,7 @@ class Category extends Component {
           })}
         </select>
 
-        <button type="button" className="btn btn-prymary" onClick={this.postEvent}></button>
+        <button onClick={this.postEvent}>登録</button>
       </div>
     );
   }
