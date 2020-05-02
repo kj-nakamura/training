@@ -4,7 +4,7 @@ import axios from "axios";
 import Event from "./Event";
 import Category from "./Category";
 
-class Form extends Component {
+class Root extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,34 +35,34 @@ class Form extends Component {
 
     //カテゴリが変更されたら
     changeCategory() {
-      switch (event.target.name) {
-          case "category":
-              axios
-                  .get("/api/events/" + event.target.value)
-                  .then(response => {
-                      this.setState({
-                          events: response.data.events
-                      });
-                  })
-                  .catch(() => {
-                      console.log("未取得");
-                  });
-              break;
-          default:
-              break;
-      }
+        switch (event.target.name) {
+            case "category":
+                axios
+                    .get("/api/events/" + event.target.value)
+                    .then(response => {
+                        this.setState({
+                            events: response.data.events
+                        });
+                    })
+                    .catch(() => {
+                        console.log("未取得");
+                    });
+                break;
+            default:
+                break;
+        }
     }
 
     render() {
         return (
-            <div className="container">
-              <Category categories={this.state.categories} changeCategory={this.changeCategory} />
-              <Event events={this.state.events} />
+            <div class="container">
+                <h3 class="mt-5">Todo 管理システム</h3>
+                Hello
+                {/* <Category categories={this.state.categories} changeCategory={this.changeCategory} />
+              <Event events={this.state.events} /> */}
             </div>
         );
     }
 }
 
-if (document.getElementById("form")) {
-    ReactDOM.render(<Form />, document.getElementById("form"));
-}
+ReactDOM.render(<Root />, document.getElementById("root"));

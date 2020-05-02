@@ -68915,7 +68915,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 
 
-__webpack_require__(/*! ./components/Form */ "./resources/js/components/Form.js");
+__webpack_require__(/*! ./components/Root */ "./resources/js/components/Root.js");
 
 /***/ }),
 
@@ -69116,9 +69116,9 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Form.js":
+/***/ "./resources/js/components/Root.js":
 /*!*****************************************!*\
-  !*** ./resources/js/components/Form.js ***!
+  !*** ./resources/js/components/Root.js ***!
   \*****************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -69165,17 +69165,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var Form =
+var Root =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(Form, _Component);
+  _inherits(Root, _Component);
 
-  function Form(props) {
+  function Root(props) {
     var _this;
 
-    _classCallCheck(this, Form);
+    _classCallCheck(this, Root);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Form).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Root).call(this, props));
     _this.state = {
       categories: [],
       events: []
@@ -69184,7 +69184,7 @@ function (_Component) {
     return _this;
   }
 
-  _createClass(Form, [{
+  _createClass(Root, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
@@ -69241,21 +69241,14 @@ function (_Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Category__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        categories: this.state.categories,
-        changeCategory: this.changeCategory
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Event__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        events: this.state.events
-      }));
+      }, "Hello");
     }
   }]);
 
-  return Form;
+  return Root;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
-if (document.getElementById("form")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Form, null), document.getElementById("form"));
-}
+react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Root, null), document.getElementById("root"));
 
 /***/ }),
 
@@ -69277,8 +69270,8 @@ if (document.getElementById("form")) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /work/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /work/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/training/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/training/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
