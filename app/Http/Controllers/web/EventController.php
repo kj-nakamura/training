@@ -12,20 +12,20 @@ class  EventController extends Controller
 {
     public function add(Request $request)
     {
-        // \Validator::make(
-        //     $request->all(),
-        //     [
-        //         'event' => 'required|integer',
-        //         'event_at' => Rule::unique('event_user')->where(function ($query) use ($request){
-        //             return $query->where('user_id', \Auth::user()->id)
-        //                 ->where('event_id', $request->event);
-        //         })
-        //     ]
-        // )->validate();
-
+        \Validator::make(
+            $request->all(),
+            [
+                'event' => 'required|integer',
+                'event_at' => Rule::unique('events')->where(function ($query) use ($request){
+                    return $query->where('user_id', \Auth::user()->id)
+                        ->where('name', $request->name);
+                })
+            ]
+        )->validate();
+dd($request);
         UserEvent::create([
             'user_id' => \Auth::user()->id,
-            'name' => $request->event->name,
+            'name' => $request->name,
             'event_at' => $request->date,
         ]);
 

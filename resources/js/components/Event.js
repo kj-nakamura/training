@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 function TrainingEvent(props) {
   return props.events.map(event => {
     return (
-      <option key={event.id} value={event.id}>
+      <option key={event.id} value={event.name}>
         {event.name}
       </option>
     );
