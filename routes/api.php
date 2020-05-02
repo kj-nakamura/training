@@ -13,10 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::namespace('api')->middleware(['api'])->group(function() {
-    // カテゴリー
-    Route::get('categories' , 'CategoryController@index');
+Route::namespace('api')->group(function() {
+    Route::middleware('auth:api')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+    
+    Route::group(['middleware' => 'guest:api'], function(){
+        Route::post('/login', 'ApiController@login');
+    });
+    
+    Route::group(['middleware' => 'auth:api'], function(){
+        Route::get('/me', 'ApiController@me');
+        Route::post('/logout', 'ApiController@logout');
 
-    // 種目
-    Route::get('events/{id}' , 'EventController@index');
+        // カテゴリー
+        Route::get('categories' , 'CategoryController@index');
+
+        // 種目
+        Route::get('events/{id}' , 'EventController@index');
+    });
 });
