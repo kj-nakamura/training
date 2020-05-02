@@ -8,10 +8,4 @@ use App\Http\Model\Category;
 
 class  EventController extends Controller
 {
-    public function index(Request $request)
-    {
-        $events = Category::find($request->id)->events;
-
-        return ['events' => $events];
-    }
 }
