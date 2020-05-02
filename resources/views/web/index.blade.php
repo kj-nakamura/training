@@ -1,22 +1,32 @@
-@extends('layouts.app')
+@extends('web.layouts.app')
 
 @section('content')
 <div class="container">
   <div>
     <h3 class="mt-5">トレーニング 管理</h3>
-    <form role="form" class="form" method="POST" action="{{ route('web::event.add') }}">
+    <a href="{{ route('web::home') }}">今日</a>
+    <a href="{{ route('web::home', ['day' => 1]) }}">昨日</a>
+    <a href="{{ route('web::home', ['day' => 2]) }}">2日前</a>
+    <form role="form"
+          class="form"
+          method="POST"
+          action="{{ route('web::event.add') }}">
       {{ csrf_field() }}
       <div class="row">
         <div class="form-group">
-          <input type="date" value="{{ now()->format('Y-m-d') }}" class="form-control" name="event_at" />
+          <input type="date"
+                 value="{{ now()->subDay(request()->day ?? 0)->format('Y-m-d') }}"
+                 class="form-control"
+                 name="event_at" />
         </div>
       </div>
       <div id="form"></div>
+      <input type="hidden" value="{{ request()->day }}" name="day">
       <button type="submit" class="btn btn-primary text-right">Send</button>
     </form>
   </div>
   <div>
-      <h3 class="mt-5">今日やった種目一覧</h3>
+      <h3 class="mt-5">種目一覧</h3>
       <ul>
         @foreach($events as $event)
           <li>
@@ -27,7 +37,7 @@
                     data-toggle="modal"
                     data-target="#modal_delete"
                     data-title="種目 :  {{ $event->name }}"
-                    data-event_url="{{ route('web::my_event.delete', $event) }}">
+                    data-event_url="{{ route('web::my_event.delete', collect($event)->put('day', request()->day)->toArray()) }}">
               削除
             </button>
           </li>
