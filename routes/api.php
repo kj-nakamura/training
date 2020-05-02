@@ -25,11 +25,11 @@ Route::namespace('api')->group(function() {
     Route::group(['middleware' => 'auth:api'], function(){
         Route::get('/me', 'ApiController@me');
         Route::post('/logout', 'ApiController@logout');
-
-        // カテゴリー
-        Route::get('categories' , 'CategoryController@index');
-
-        // 種目
-        Route::get('events/{id}' , 'EventController@index');
     });
+
+    // カテゴリー
+    Route::get('categories' , 'CategoryController@index');
+
+    // 種目
+    Route::get('events/{id}' , 'EventController@index');
 });

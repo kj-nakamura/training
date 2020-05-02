@@ -22,7 +22,7 @@ class  EventController extends Controller
                 })
             ]
         )->validate();
-dd($request);
+        
         UserEvent::create([
             'user_id' => \Auth::user()->id,
             'name' => $request->name,

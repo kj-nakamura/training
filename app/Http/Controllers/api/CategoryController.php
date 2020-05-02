@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories =  Category::with(['events'])->get()->toJson();
 
         return $categories;
     }
