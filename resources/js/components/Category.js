@@ -13,7 +13,7 @@ class Category extends Component {
   }
 
   componentDidMount() {
-    return axios.get("/api/categories")
+    axios.get("/api/categories")
       .then((response) => {
         this.setState({ categories: response.data });
         this.setState({ events: response.data[0].events });
